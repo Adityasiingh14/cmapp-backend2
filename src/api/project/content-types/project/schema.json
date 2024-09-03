@@ -22,6 +22,12 @@
     },
     "deadline": {
       "type": "date"
+    },
+    "registrations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sign-up.sign-up",
+      "mappedBy": "project"
     }
   }
 }

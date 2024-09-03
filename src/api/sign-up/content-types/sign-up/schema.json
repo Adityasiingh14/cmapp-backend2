@@ -4,7 +4,8 @@
   "info": {
     "singularName": "sign-up",
     "pluralName": "sign-ups",
-    "displayName": "Sign Up"
+    "displayName": "registration",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -41,14 +42,26 @@
       ]
     },
     "contractorLicense": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "approver": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "registrations"
     }
   }
 }

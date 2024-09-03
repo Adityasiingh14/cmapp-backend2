@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tasks",
+  "info": {
+    "singularName": "task",
+    "pluralName": "tasks",
+    "displayName": "task"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "completed",
+        "not_completed"
+      ]
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "rejection_comment": {
+      "type": "text"
+    }
+  }
+}
