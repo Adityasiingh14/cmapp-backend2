@@ -395,6 +395,59 @@ export interface ApiProjectProject extends Schema.CollectionType {
   };
 }
 
+export interface ApiSignUpSignUp extends Schema.CollectionType {
+  collectionName: 'sign_ups';
+  info: {
+    singularName: 'sign-up';
+    pluralName: 'sign-ups';
+    displayName: 'Sign Up';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    fullName: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 2;
+        maxLength: 70;
+      }>;
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    password: Attribute.Password & Attribute.Required;
+    socialSecurityNumber: Attribute.BigInteger &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMax<
+        {
+          min: '9';
+        },
+        string
+      >;
+    projectSelection: Attribute.Enumeration<
+      ['Project Name 1', 'Project Name 2']
+    >;
+    contractorLicense: Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::sign-up.sign-up',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::sign-up.sign-up',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -832,6 +885,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::project.project': ApiProjectProject;
+      'api::sign-up.sign-up': ApiSignUpSignUp;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
