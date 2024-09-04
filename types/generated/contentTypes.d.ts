@@ -1001,6 +1001,11 @@ export interface ApiStageStage extends Schema.CollectionType {
   attributes: {
     name: Attribute.String;
     description: Attribute.Text;
+    tasks: Attribute.Relation<
+      'api::stage.stage',
+      'oneToMany',
+      'api::task.task'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1061,6 +1066,7 @@ export interface ApiTaskTask extends Schema.CollectionType {
     singularName: 'task';
     pluralName: 'tasks';
     displayName: 'task';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1068,9 +1074,18 @@ export interface ApiTaskTask extends Schema.CollectionType {
   attributes: {
     name: Attribute.String;
     description: Attribute.Text;
-    status: Attribute.Enumeration<['completed', 'not_completed']>;
+    status: Attribute.Enumeration<['completed', 'not_completed', 'rejected']>;
     image_url: Attribute.String;
     rejection_comment: Attribute.Text;
+    deadline: Attribute.Date;
+    stage: Attribute.Relation<
+      'api::task.task',
+      'manyToOne',
+      'api::stage.stage'
+    >;
+    qa: Attribute.Text;
+    qc: Attribute.Text;
+    documents: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

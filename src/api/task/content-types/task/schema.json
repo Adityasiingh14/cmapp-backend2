@@ -4,7 +4,8 @@
   "info": {
     "singularName": "task",
     "pluralName": "tasks",
-    "displayName": "task"
+    "displayName": "task",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,7 +22,8 @@
       "type": "enumeration",
       "enum": [
         "completed",
-        "not_completed"
+        "not_completed",
+        "rejected"
       ]
     },
     "image_url": {
@@ -29,6 +31,24 @@
     },
     "rejection_comment": {
       "type": "text"
+    },
+    "deadline": {
+      "type": "date"
+    },
+    "stage": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::stage.stage",
+      "inversedBy": "tasks"
+    },
+    "qa": {
+      "type": "text"
+    },
+    "qc": {
+      "type": "text"
+    },
+    "documents": {
+      "type": "string"
     }
   }
 }
