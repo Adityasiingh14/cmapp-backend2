@@ -771,6 +771,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    tasks: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::task.task'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -781,6 +786,48 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'plugin::users-permissions.user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginCustomApiCustomApi extends Schema.CollectionType {
+  collectionName: 'custom_apis';
+  info: {
+    singularName: 'custom-api';
+    pluralName: 'custom-apis';
+    displayName: 'Custom API';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: true;
+    };
+    'content-type-builder': {
+      visible: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'plugin::custom-api.custom-api', 'name'> &
+      Attribute.Required;
+    selectedContentType: Attribute.JSON;
+    structure: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::custom-api.custom-api',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::custom-api.custom-api',
       'oneToOne',
       'admin::user'
     > &
@@ -901,10 +948,10 @@ export interface ApiProjectProject extends Schema.CollectionType {
     description: Attribute.Text;
     update_status: Attribute.String;
     deadline: Attribute.Date;
-    registrations: Attribute.Relation<
+    tasks: Attribute.Relation<
       'api::project.project',
       'oneToMany',
-      'api::sign-up.sign-up'
+      'api::task.task'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -953,9 +1000,8 @@ export interface ApiSignUpSignUp extends Schema.CollectionType {
         },
         string
       >;
-    projectSelection: Attribute.Enumeration<
-      ['Project Name 1', 'Project Name 2']
-    >;
+    Work: Attribute.Enumeration<['Dirt Work', 'Plumber', 'Electrician']> &
+      Attribute.Required;
     contractorLicense: Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -967,7 +1013,7 @@ export interface ApiSignUpSignUp extends Schema.CollectionType {
     >;
     project: Attribute.Relation<
       'api::sign-up.sign-up',
-      'manyToOne',
+      'oneToOne',
       'api::project.project'
     >;
     createdAt: Attribute.DateTime;
@@ -1074,7 +1120,8 @@ export interface ApiTaskTask extends Schema.CollectionType {
   attributes: {
     name: Attribute.String;
     description: Attribute.Text;
-    status: Attribute.Enumeration<['completed', 'not_completed', 'rejected']>;
+    status: Attribute.Enumeration<['completed', 'not_completed', 'rejected']> &
+      Attribute.DefaultTo<'not_completed'>;
     image_url: Attribute.String;
     rejection_comment: Attribute.Text;
     deadline: Attribute.Date;
@@ -1086,6 +1133,22 @@ export interface ApiTaskTask extends Schema.CollectionType {
     qa: Attribute.Text;
     qc: Attribute.Text;
     documents: Attribute.String;
+    assigned_to: Attribute.Relation<
+      'api::task.task',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    approver: Attribute.Relation<
+      'api::task.task',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    docs: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    project: Attribute.Relation<
+      'api::task.task',
+      'manyToOne',
+      'api::project.project'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1114,6 +1177,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'plugin::custom-api.custom-api': PluginCustomApiCustomApi;
       'api::category.category': ApiCategoryCategory;
       'api::consultant.consultant': ApiConsultantConsultant;
       'api::contractor.contractor': ApiContractorContractor;

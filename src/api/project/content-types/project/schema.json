@@ -23,10 +23,10 @@
     "deadline": {
       "type": "date"
     },
-    "registrations": {
+    "tasks": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::sign-up.sign-up",
+      "target": "api::task.task",
       "mappedBy": "project"
     }
   }
