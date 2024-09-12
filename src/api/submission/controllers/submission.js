@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * sign-up controller
+ * submission controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::sign-up.sign-up');
+module.exports = createCoreController('api::submission.submission');

@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * sign-up router
+ * submission router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::sign-up.sign-up');
+module.exports = createCoreRouter('api::submission.submission');
