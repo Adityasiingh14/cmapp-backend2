@@ -971,69 +971,6 @@ export interface ApiProjectProject extends Schema.CollectionType {
   };
 }
 
-export interface ApiSignUpSignUp extends Schema.CollectionType {
-  collectionName: 'sign_ups';
-  info: {
-    singularName: 'sign-up';
-    pluralName: 'sign-ups';
-    displayName: 'registration';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    fullName: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 2;
-        maxLength: 70;
-      }>;
-    email: Attribute.Email & Attribute.Required & Attribute.Unique;
-    password: Attribute.Password & Attribute.Required;
-    socialSecurityNumber: Attribute.BigInteger &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMax<
-        {
-          min: '9';
-        },
-        string
-      >;
-    Work: Attribute.Enumeration<['Dirt Work', 'Plumber', 'Electrician']> &
-      Attribute.Required;
-    contractorLicense: Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    approver: Attribute.Relation<
-      'api::sign-up.sign-up',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    project: Attribute.Relation<
-      'api::sign-up.sign-up',
-      'oneToOne',
-      'api::project.project'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::sign-up.sign-up',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::sign-up.sign-up',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiStageStage extends Schema.CollectionType {
   collectionName: 'stages';
   info: {
@@ -1099,6 +1036,48 @@ export interface ApiSubcategorySubcategory extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::subcategory.subcategory',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSubmissionSubmission extends Schema.CollectionType {
+  collectionName: 'submissions';
+  info: {
+    singularName: 'submission';
+    pluralName: 'submissions';
+    displayName: 'submission';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    comment: Attribute.Text;
+    proofOfWork: Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    count: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>;
+    status: Attribute.Enumeration<['pending', 'approved', 'declined']>;
+    task: Attribute.Relation<
+      'api::submission.submission',
+      'oneToOne',
+      'api::task.task'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::submission.submission',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::submission.submission',
       'oneToOne',
       'admin::user'
     > &
@@ -1182,9 +1161,9 @@ declare module '@strapi/types' {
       'api::consultant.consultant': ApiConsultantConsultant;
       'api::contractor.contractor': ApiContractorContractor;
       'api::project.project': ApiProjectProject;
-      'api::sign-up.sign-up': ApiSignUpSignUp;
       'api::stage.stage': ApiStageStage;
       'api::subcategory.subcategory': ApiSubcategorySubcategory;
+      'api::submission.submission': ApiSubmissionSubmission;
       'api::task.task': ApiTaskTask;
     }
   }

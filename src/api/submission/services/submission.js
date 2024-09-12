@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * sign-up service
+ * submission service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::sign-up.sign-up');
+module.exports = createCoreService('api::submission.submission');
