@@ -79,6 +79,12 @@
       "relation": "manyToOne",
       "target": "api::project.project",
       "inversedBy": "tasks"
+    },
+    "submissions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::submission.submission",
+      "mappedBy": "task"
     }
   }
 }

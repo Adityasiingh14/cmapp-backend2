@@ -41,8 +41,9 @@
     },
     "task": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::task.task"
+      "relation": "manyToOne",
+      "target": "api::task.task",
+      "inversedBy": "submissions"
     }
   }
 }

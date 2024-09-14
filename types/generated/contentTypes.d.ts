@@ -793,6 +793,48 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface PluginCustomApiCustomApi extends Schema.CollectionType {
+  collectionName: 'custom_apis';
+  info: {
+    singularName: 'custom-api';
+    pluralName: 'custom-apis';
+    displayName: 'Custom API';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: true;
+    };
+    'content-type-builder': {
+      visible: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'plugin::custom-api.custom-api', 'name'> &
+      Attribute.Required;
+    selectedContentType: Attribute.JSON;
+    structure: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::custom-api.custom-api',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::custom-api.custom-api',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCategoryCategory extends Schema.CollectionType {
   collectionName: 'categories';
   info: {
@@ -911,6 +953,11 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'oneToMany',
       'api::task.task'
     >;
+    registrations: Attribute.Relation<
+      'api::project.project',
+      'oneToMany',
+      'api::registration.registration'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -922,6 +969,50 @@ export interface ApiProjectProject extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::project.project',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRegistrationRegistration extends Schema.CollectionType {
+  collectionName: 'registrations';
+  info: {
+    singularName: 'registration';
+    pluralName: 'registrations';
+    displayName: 'registration';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    fullName: Attribute.String;
+    socialSecurityNumber: Attribute.BigInteger;
+    email: Attribute.Email;
+    password: Attribute.Password;
+    project: Attribute.Relation<
+      'api::registration.registration',
+      'manyToOne',
+      'api::project.project'
+    >;
+    documents: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    approver: Attribute.Relation<
+      'api::registration.registration',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::registration.registration',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::registration.registration',
       'oneToOne',
       'admin::user'
     > &
@@ -1022,7 +1113,7 @@ export interface ApiSubmissionSubmission extends Schema.CollectionType {
     status: Attribute.Enumeration<['pending', 'approved', 'declined']>;
     task: Attribute.Relation<
       'api::submission.submission',
-      'oneToOne',
+      'manyToOne',
       'api::task.task'
     >;
     createdAt: Attribute.DateTime;
@@ -1086,6 +1177,11 @@ export interface ApiTaskTask extends Schema.CollectionType {
       'manyToOne',
       'api::project.project'
     >;
+    submissions: Attribute.Relation<
+      'api::task.task',
+      'oneToMany',
+      'api::submission.submission'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1114,10 +1210,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'plugin::custom-api.custom-api': PluginCustomApiCustomApi;
       'api::category.category': ApiCategoryCategory;
       'api::consultant.consultant': ApiConsultantConsultant;
       'api::contractor.contractor': ApiContractorContractor;
       'api::project.project': ApiProjectProject;
+      'api::registration.registration': ApiRegistrationRegistration;
       'api::stage.stage': ApiStageStage;
       'api::subcategory.subcategory': ApiSubcategorySubcategory;
       'api::submission.submission': ApiSubmissionSubmission;

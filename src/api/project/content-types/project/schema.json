@@ -28,6 +28,12 @@
       "relation": "oneToMany",
       "target": "api::task.task",
       "mappedBy": "project"
+    },
+    "registrations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::registration.registration",
+      "mappedBy": "project"
     }
   }
 }
