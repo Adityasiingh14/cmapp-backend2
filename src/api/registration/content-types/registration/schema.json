@@ -4,7 +4,8 @@
   "info": {
     "singularName": "registration",
     "pluralName": "registrations",
-    "displayName": "registration"
+    "displayName": "registration",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -20,9 +21,6 @@
     "email": {
       "type": "email"
     },
-    "password": {
-      "type": "password"
-    },
     "project": {
       "type": "relation",
       "relation": "manyToOne",
@@ -30,19 +28,33 @@
       "inversedBy": "registrations"
     },
     "documents": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "approver": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "approved",
+        "pending",
+        "rejected"
+      ]
+    },
+    "password": {
+      "type": "string",
+      "required": true,
+      "minLength": 8
     }
   }
 }

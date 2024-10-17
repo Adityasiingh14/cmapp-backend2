@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-09-30T07:32:34.530Z"
+    "x-generation-date": "2024-09-20T14:07:28.538Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -2861,6 +2861,17 @@
                                                       }
                                                     }
                                                   },
+                                                  "status": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "approved",
+                                                      "pending",
+                                                      "rejected"
+                                                    ]
+                                                  },
+                                                  "password": {
+                                                    "type": "string"
+                                                  },
                                                   "createdAt": {
                                                     "type": "string",
                                                     "format": "date-time"
@@ -3356,6 +3367,9 @@
         ],
         "properties": {
           "data": {
+            "required": [
+              "password"
+            ],
             "type": "object",
             "properties": {
               "fullName": {
@@ -3369,11 +3383,6 @@
               "email": {
                 "type": "string",
                 "format": "email"
-              },
-              "password": {
-                "type": "string",
-                "format": "password",
-                "example": "*******"
               },
               "project": {
                 "oneOf": [
@@ -3410,6 +3419,17 @@
                   }
                 ],
                 "example": "string or id"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "approved",
+                  "pending",
+                  "rejected"
+                ]
+              },
+              "password": {
+                "type": "string"
               }
             }
           }
@@ -3463,6 +3483,9 @@
       },
       "Registration": {
         "type": "object",
+        "required": [
+          "password"
+        ],
         "properties": {
           "fullName": {
             "type": "string"
@@ -5066,6 +5089,17 @@
                                         }
                                       }
                                     },
+                                    "status": {
+                                      "type": "string",
+                                      "enum": [
+                                        "approved",
+                                        "pending",
+                                        "rejected"
+                                      ]
+                                    },
+                                    "password": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string",
                                       "format": "date-time"
@@ -5329,6 +5363,17 @@
                 }
               }
             }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "approved",
+              "pending",
+              "rejected"
+            ]
+          },
+          "password": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -6787,6 +6832,17 @@
                                                         }
                                                       }
                                                     }
+                                                  },
+                                                  "status": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "approved",
+                                                      "pending",
+                                                      "rejected"
+                                                    ]
+                                                  },
+                                                  "password": {
+                                                    "type": "string"
                                                   },
                                                   "createdAt": {
                                                     "type": "string",
@@ -9390,6 +9446,17 @@
                                                     }
                                                   }
                                                 },
+                                                "status": {
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "approved",
+                                                    "pending",
+                                                    "rejected"
+                                                  ]
+                                                },
+                                                "password": {
+                                                  "type": "string"
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -11292,6 +11359,17 @@
                                                                     }
                                                                   }
                                                                 }
+                                                              },
+                                                              "status": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                  "approved",
+                                                                  "pending",
+                                                                  "rejected"
+                                                                ]
+                                                              },
+                                                              "password": {
+                                                                "type": "string"
                                                               },
                                                               "createdAt": {
                                                                 "type": "string",

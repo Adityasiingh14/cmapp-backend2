@@ -982,6 +982,7 @@ export interface ApiRegistrationRegistration extends Schema.CollectionType {
     singularName: 'registration';
     pluralName: 'registrations';
     displayName: 'registration';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -990,7 +991,6 @@ export interface ApiRegistrationRegistration extends Schema.CollectionType {
     fullName: Attribute.String;
     socialSecurityNumber: Attribute.BigInteger;
     email: Attribute.Email;
-    password: Attribute.Password;
     project: Attribute.Relation<
       'api::registration.registration',
       'manyToOne',
@@ -1002,6 +1002,12 @@ export interface ApiRegistrationRegistration extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    status: Attribute.Enumeration<['approved', 'pending', 'rejected']>;
+    password: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 8;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
