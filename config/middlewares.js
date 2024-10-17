@@ -1,11 +1,28 @@
-module.exports = [
+// config/middlewares.js
+module.exports = ({ env }) => [
   'strapi::logger',
   'strapi::errors',
   'strapi::security',
-  'strapi::cors',
+  {
+    name: 'strapi::cors',
+    config: {
+      origin: ['https://cmapp.kivio.in/','http://localhost:3032','*'], // Add your Angular app URLs here
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    },
+  },
+  {
+    name: 'strapi::body',
+    config: {
+      formLimit: '2gb',  // Set form data size limit
+      jsonLimit: '2gb',  // Set JSON payload size limit
+      textLimit: '2gb',  // Set text payload size limit
+      formidable: {
+        maxFileSize: 2 * 1024 * 1024 * 1024 // Set max file size to 2GB
+      }
+    },
+  },
   'strapi::poweredBy',
   'strapi::query',
-  'strapi::body',
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
