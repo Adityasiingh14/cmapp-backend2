@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "submissions",
+  "info": {
+    "singularName": "submission",
+    "pluralName": "submissions",
+    "displayName": "Submission",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "comment": {
+      "type": "string"
+    },
+    "proofOfWork": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "label": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
+      ]
+    },
+    "task": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::task.task",
+      "inversedBy": "submissions"
+    },
+    "value": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tasks",
+  "info": {
+    "singularName": "task",
+    "pluralName": "tasks",
+    "displayName": "task",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "label": {
+      "type": "enumeration",
+      "enum": [
+        "completed",
+        "not_completed",
+        "rejected"
+      ]
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "rejection_comment": {
+      "type": "string"
+    },
+    "deadline": {
+      "type": "date"
+    },
+    "qa": {
+      "type": "string"
+    },
+    "qc": {
+      "type": "string"
+    },
+    "documents": {
+      "type": "string"
+    },
+    "docs": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "assingned_to": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "tasks"
+    },
+    "approver": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "tasks"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "tasks"
+    },
+    "submissions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::submission.submission",
+      "mappedBy": "task"
+    },
+    "stage": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::stage.stage",
+      "inversedBy": "tasks"
+    }
+  }
+}

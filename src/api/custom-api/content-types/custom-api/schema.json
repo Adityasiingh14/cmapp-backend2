@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "custom_apis",
+  "info": {
+    "singularName": "custom-api",
+    "pluralName": "custom-apis",
+    "displayName": "CustomAPI"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "selectedContentType": {
+      "type": "json"
+    },
+    "structure": {
+      "type": "json"
+    }
+  }
+}
