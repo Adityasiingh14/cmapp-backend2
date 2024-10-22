@@ -823,7 +823,7 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    assingned_to: Schema.Attribute.Relation<
+    assigned_to: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
     >;
@@ -831,12 +831,12 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    project: Schema.Attribute.Relation<'manyToOne', 'api::project.project'>;
     submissions: Schema.Attribute.Relation<
       'oneToMany',
       'api::submission.submission'
     >;
     stage: Schema.Attribute.Relation<'manyToOne', 'api::stage.stage'>;
+    project: Schema.Attribute.Relation<'manyToOne', 'api::project.project'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

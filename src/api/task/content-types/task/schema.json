@@ -55,7 +55,7 @@
         "audios"
       ]
     },
-    "assingned_to": {
+    "assigned_to": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
@@ -65,12 +65,6 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "tasks"
-    },
-    "project": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::project.project",
       "inversedBy": "tasks"
     },
     "submissions": {
@@ -83,6 +77,12 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::stage.stage",
+      "inversedBy": "tasks"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
       "inversedBy": "tasks"
     }
   }
